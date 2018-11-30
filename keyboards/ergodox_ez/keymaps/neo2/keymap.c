@@ -1,4 +1,4 @@
-#include "ergodox.h"
+#include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
 #include "keymap_german.h"
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_ESC,          DE_UE,          DE_OE,    DE_AE,    KC_NO,    KC_NO,   LCTL(KC_LALT),
         KC_TAB,          DE_Q,           DE_W,     DE_E,     DE_R,     DE_T,    KC_NO,
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |  ´   |      |      |       |      |      |   `  |
  *                                 `--------------------'       `--------------------'
  */
-[SYMB] = KEYMAP(
+[SYMB] = LAYOUT_ergodox(
        // left hand
        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
        KC_NO,  KC_NO,  DE_UNDS,DE_LBRC,DE_RBRC,DE_CIRC,KC_NO,
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[MOVE] = KEYMAP(
+[MOVE] = LAYOUT_ergodox(
        KC_NO  , KC_NO  , KC_NO  , KC_NO  , KC_NO    , KC_NO  , KC_NO,
        KC_NO  , KC_PGUP, KC_BSPC, KC_UP  , KC_DELETE, KC_PGDN, KC_NO,
        KC_NO  , KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT   , KC_END,
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-[ACT] = KEYMAP(
+[ACT] = LAYOUT_ergodox(
        KC_NO  , KC_NO,         KC_NO  ,       KC_NO        , KC_NO          , KC_NO  , KC_NO,
        KC_NO  , KC_NO,         LCTL(KC_BSPC), KC_FN4       , LCTL(KC_DELETE), KC_NO, KC_NO,
        KC_NO  , LCTL(KC_HOME), LCTL(KC_LEFT), KC_FN5       , LCTL(KC_RGHT), LCTL(KC_END),
@@ -192,17 +192,13 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
     switch (id) {
         case 0:
-            return (record->event.pressed ?
-                    MACRO( D(LSHIFT), T(HOME) , U(LSHIFT), D(LCTL), T(X), U(LCTL), END ) :
-                    MACRO_NONE );
+            return MACRODOWN( D(LSHIFT), T(HOME) , U(LSHIFT), D(LCTL), T(X), U(LCTL), END );
         case 1:
-            return (record->event.pressed ?
-                    MACRO( D(LSHIFT), T(END) , U(LSHIFT), D(LCTL), T(X), U(LCTL), END ) :
-                    MACRO_NONE );
+            return MACRODOWN( D(LSHIFT), T(END) , U(LSHIFT), D(LCTL), T(X), U(LCTL), END );
         case 2:
-            return MACRODOWN(TYPE(DE_GRV), TYPE(KC_SPACE), END);
+            return MACRODOWN( D(LSHIFT), T(EQL), U(LSHIFT), T(SPACE), END);
         case 3:
-            return MACRODOWN(TYPE(DE_ACUT), TYPE(KC_SPACE), END);
+            return MACRODOWN( T(EQL), T(SPACE), END);
         default:
             return MACRO_NONE;
     }
