@@ -196,9 +196,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         case 1:
             return MACRODOWN( D(LSHIFT), T(END) , U(LSHIFT), D(LCTL), T(X), U(LCTL), END );
         case 2:
-            return MACRODOWN( D(LSHIFT), T(EQL), U(LSHIFT), T(SPACE), END);
+            return MACRODOWN( D(LSHIFT), T(EQL), T(EQL), U(LSHIFT), END);
         case 3:
-            return MACRODOWN( T(EQL), T(SPACE), END);
+            return MACRODOWN( T(EQL), T(EQL), END);
         default:
             return MACRO_NONE;
     }
